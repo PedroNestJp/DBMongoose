@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const PORT = process.env.PORT
 const DATABASE = process.env.DATABASE
 
+
 app.use(express.json)
 
 mongoose.connect(process.env.DATABASE)
@@ -12,17 +13,25 @@ mongoose.connect(process.env.DATABASE)
 )}).catch((e)=>{console.log(e)})
 
 
-app.get('/', (req,res)=>{res.send("Hi, Pedro")})
+const produtoSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    desc: String,
+    price: { type: String, required: true},
+})
+
+
+app.get('/', (req,res)=>{res.send(produtoSchema)})
 
 
 app.post('/produtos', async (req,res)=>{
     const produto = new Produto(req.body)
     const retorno = await produto.save(produto)
+    console.log(produto)
     res.send('O produto foi cadastrado com sucesso ✔')
 })
 
 app.get('/produtos', async (req, res) =>{
-    const produtos = await mongoose.Produto.find()
+    const produtos = await mongoose.produto.find()
     res.send(produtos)
 })
 
@@ -33,9 +42,3 @@ app.get('/produtos', async (req, res) =>{
 app.listen(PORT, () => {
     console.log(`⚡ O Serviço está sendo executado ${PORT}`)
 })
-
-
-
-
-
-
