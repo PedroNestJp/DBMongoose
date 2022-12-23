@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const produtoSchema = new mongoose.Schema({
+const ProdutoSchema = new mongoose.Schema({
     nome:{type:String, required:true, unique:true},
     desc:{type:String, required:true},
     preco:{type:String, required:true},
@@ -9,4 +9,4 @@ const produtoSchema = new mongoose.Schema({
     updateAt:{Date}
 })
 
-module.exports = mongoose.model("Produto", produtoSchema)
+module.exports = mongoose.model("Produto", ProdutoSchema)
